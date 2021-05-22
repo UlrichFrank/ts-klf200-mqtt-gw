@@ -1,0 +1,18 @@
+/node_modules
+/config.js
+/coverage
+/dist
+/tmp
+.DS_Store
+.cache
+/*.log
+/.idea
+/package-lock.json
+*.pyc
+renovate-schema.json
+
+# generated code
+**/*.generated.ts
+
+# testing
+/docker-compose.yml
