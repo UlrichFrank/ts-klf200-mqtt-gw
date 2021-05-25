@@ -31,7 +31,7 @@
     "preset": "ts-jest",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/test"
+      "<rootDir>/src"
     ],
     "testMatch": [
       "**/__tests__/**/*.+(ts|tsx|js)",
