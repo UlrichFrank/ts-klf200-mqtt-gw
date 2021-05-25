@@ -11,6 +11,7 @@
 //    "noUnusedLocals": true,
     "lib": ["es2018", "dom"],
     "types": ["node", "jest"],
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
     "declarationMap": true,
