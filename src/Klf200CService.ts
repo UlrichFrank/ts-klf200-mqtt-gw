@@ -17,7 +17,7 @@ export class Klf200Service {
 
     public static async onLoad() {
         try {
-            await Klf200Service.connection?.loginAsync(Klf200Service.config.getPassword());
+            await Klf200Service.connection?.loginAsync(Klf200Service.config.password!);
         }  finally {
             await Klf200Service.connection?.logoutAsync();
         }     
@@ -33,13 +33,13 @@ export class Klf200Service {
     public start() : Klf200Service {
         var ca : Buffer | undefined;
         try { 
-            ca = readFileSync(Klf200Service.config?.getCert()?? 'velux-cert.pem')
+            ca = readFileSync(Klf200Service.config?.cert!);
         }
         catch(error) {
             console.log(error);
         }
 
-        Klf200Service.connection = new Connection(Klf200Service.config?.getHost(), ca, Klf200Service.config?.fingerprint);
+        Klf200Service.connection = new Connection(Klf200Service.config?.host!, ca, Klf200Service.config?.fingerprint);
 
         return this;
     }

@@ -1,36 +1,16 @@
-import { Serializable, JsonProperty } from "typescript-json-serializer";
+import { jsonObject, jsonMember, TypedJSON } from 'typedjson';
 
-@Serializable()
+@jsonObject
 export class ConfigKlf200 {
-    constructor(
-        @JsonProperty()
-        public password: string,
+        @jsonMember(String)
+        public password?: string;
 
-        @JsonProperty()
-        public host: string,
+        @jsonMember(String)
+        public host?: string;
 
-        @JsonProperty({ required : false })
-        public fingerprint?: string,
+        @jsonMember(String)
+        public fingerprint?: string = '12:34:56:78:9a:bc:de:f0:12:34:56:78:9a:bc:de:f0:12:34:56:78';
         
-        @JsonProperty({ required : false })
-        public cert?: string) {
-        this.fingerprint = fingerprint?? '12:34:56:78:9a:bc:de:f0:12:34:56:78:9a:bc:de:f0:12:34:56:78';
-        this.cert = cert?? 'velux-cert.pem';
-    }
-
-    public getPassword() : string {
-        return this.password;
-    }
-
-    public getHost() : string {
-        return this.host;
-    }
-
-    public getFingerprint() : string | undefined {
-        return this.fingerprint;
-    }
-
-    public getCert() : string | undefined {
-        return this.cert;
-    }
+        @jsonMember(String)
+        public cert?: string = 'velux-cert.pem';
 }

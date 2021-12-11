@@ -5,6 +5,7 @@ import { factory } from "./ConfigLog4j";
 import { GwMqttClient } from "@ulrichfrank/ts-mqtt-gateway";
 import { Config } from "./Config/Config";
 import { Klf200Service } from "./Klf200CService";
+import { parse } from "@ulrichfrank/ts-mqtt-gateway";
 
 
 const LOGGER = factory.getLogger("ts-klf200-mqtt-gw");
@@ -23,18 +24,20 @@ class Main {
         LOGGER.debug("Debug enabled");
         LOGGER.info("Info enabled");
 
-        try {
+        //try {
             var client = GwMqttClient
-                .start(config.getMqtt()
-                //.setDefaultTopic("velux")
-            );
+                .start(config.mqtt);
 
             //client.subscribe(config.getMqtt().getTopic() + "/light/#");
             client.online();
 
-            new Klf200Service(config.getKlf200()).start();
-        } catch (error) {
-            LOGGER.error(error);
-        }
+            new Klf200Service(config.klf200).start();
+        //} catch (error) {
+        //    LOGGER.error(error.message);
+        //}
     }
 }
+
+var config : Config = parse("./example_config.json", Config);
+
+Main.start(config);
