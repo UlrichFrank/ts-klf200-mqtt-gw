@@ -20,13 +20,14 @@ class Main {
     private constructor() {
     }
 
-    public static start(config: Config) {
+    public static async start(config: Config) {
         LOGGER.debug("Debug enabled");
         LOGGER.info("Info enabled");
 
         //try {
             var client = GwMqttClient
                 .start(config.mqtt);
+            await client.isConnected();
 
             //client.subscribe(config.getMqtt().getTopic() + "/light/#");
             client.online();
@@ -38,6 +39,6 @@ class Main {
     }
 }
 
-var config : Config = parse("./example_config.json", Config);
+var config : Config = parse("./config.json", Config);
 
 Main.start(config);

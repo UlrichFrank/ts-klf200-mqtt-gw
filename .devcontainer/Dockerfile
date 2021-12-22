@@ -28,7 +28,7 @@ VOLUME [ "/var/lib/docker" ]
 
 
 # [Optional] Uncomment if you want to install more global node packages
-RUN su node -c "npm install -g nodemon npm"
+RUN su node -c "npm install -g nodemon npm@latest"
 
 # Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
 # inside the container "overrideCommand": false is set in devcontainer.json. 

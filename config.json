@@ -1,0 +1,11 @@
+{
+    "mqtt": {
+        "url" : "mqtt://homeserver.diefranks.eu:1883",
+        "username" : "mosquitto",
+        "password" : "UR23x2jqHgr6"
+    },
+    "klf200" : {
+        "password": "pass",
+        "host": "velux"
+    }
+}
