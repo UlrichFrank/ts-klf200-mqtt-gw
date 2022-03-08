@@ -1,0 +1,49 @@
+{
+    "name": "velux-to-mqtt",
+    "version": "1.0.0",
+    "description": "Hue To MQTT Gateway",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "coverage": "jest --coverage",
+        "start": "tsc && node dist/app/lib/index.js",
+        "build": "tsc",
+        "lint": "eslint lib/** --ext .ts",
+        "generate-test-stubs": "node dist/lib/test-stub-generator.js"
+    },
+    "keywords": [],
+    "author": "Arndt, Philipp",
+    "license": "Apache-2.0",
+    "private": true,
+    "devDependencies": {
+        "@types/async-lock": "1.1.3",
+        "@types/eventsource": "1.1.8",
+        "@types/jest": "27.4.1",
+        "@types/node": "16.11.25",
+        "@types/node-cron": "3.0.1",
+        "@typescript-eslint/eslint-plugin": "5.12.1",
+        "@typescript-eslint/parser": "5.12.1",
+        "eslint": "7.32.0",
+        "eslint-config-standard": "16.0.3",
+        "eslint-plugin-import": "2.25.4",
+        "eslint-plugin-node": "11.1.0",
+        "eslint-plugin-promise": "5.2.0",
+        "jest": "27.5.1",
+        "jest-junit": "13.0.0",
+        "jest-standard-reporter": "2.0.0",
+        "testcontainers": "8.2.0",
+        "ts-jest": "27.1.3",
+        "ts-node": "10.5.0",
+        "typescript": "4.5.5"
+    },
+    "dependencies": {
+        "async-lock": "1.3.1",
+        "axios": "0.26.0",
+        "eventsource": "1.1.0",
+        "klf-200-api": "^3.1.2",
+        "mqtt": "4.3.6",
+        "node-cron": "3.0.0",
+        "winston": "3.6.0",
+        "winston-transport": "4.5.0"
+    }
+}

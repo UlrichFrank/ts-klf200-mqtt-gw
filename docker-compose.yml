@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  veluxqtt:
+    hostname: veluxmqtt
+    image: ulrichfrank/veluxmqtt:${VERSION}
+    build: .
+    volumes:
+      - ./production/config:/var/lib/veluxmqtt:ro
+    restart: "no"

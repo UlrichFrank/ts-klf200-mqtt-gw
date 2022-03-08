@@ -1,18 +1,9 @@
-/node_modules
-/config.js
-/coverage
-/dist
-/tmp
-.DS_Store
-.cache
-/*.log
-/.idea
-/package-lock.json
-*.pyc
-renovate-schema.json
+coverage/
+*.iml
+.idea/
 
-# generated code
-**/*.generated.ts
-
-# testing
-/docker-compose.yml
+# Node/NPM
+node_modules/
+dist/
+junit.xml
+build_internal/
