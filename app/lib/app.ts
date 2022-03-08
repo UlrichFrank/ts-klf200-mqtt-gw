@@ -1,5 +1,4 @@
 import { connectMqtt } from "./mqtt/mqtt-client"
-import { startSSE } from "./SSEClient"
 import { log } from "./logger"
 import cron from "node-cron"
 
@@ -13,12 +12,6 @@ export const startApp = async () => {
     const mqttCleanUp = await connectMqtt()
     await triggerFullUpdate()
 
-    const sse = startSSE()
-    sse.addEventListener("message", event => {
-        for (const data of JSON.parse(event.data)) {
-        }
-    })
-
     log.info("Application is now ready.")
 
     log.info("Scheduling hourly-full-update.")
@@ -27,7 +20,6 @@ export const startApp = async () => {
 
     return () => {
         mqttCleanUp()
-        sse.close()
         task.stop()
     }
 }
