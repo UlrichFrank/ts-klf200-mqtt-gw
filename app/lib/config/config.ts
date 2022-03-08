@@ -13,7 +13,7 @@ export type ConfigMqtt = {
 
 export type ConfigVelux = {
     host: string
-    password?: string
+    password: string
     fingerprint: string
     ca: string
 }
@@ -35,7 +35,8 @@ const mqttDefaults = {
 
 const veluxDefaults = {
     fingerprint: "12:34:56:78:9a:bc:de:f0:12:34:56:78:9a:bc:de:f0:12:34:56:78",
-    ca: "velux-cert.pem"
+    ca: "velux-cert.pem",
+    password: "velux123"
 }
 
 const configDefaults = {

@@ -4,8 +4,9 @@
         "username" : "mosquitto",
         "password" : "UR23x2jqHgr6"
     },
-    "klf200" : {
+    "velux" : {
+        "host": "10.0.10.16",
         "password": "pass",
-        "host": "velux"
+        "topic": "velux"
     }
 }

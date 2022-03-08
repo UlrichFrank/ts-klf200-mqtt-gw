@@ -2,7 +2,7 @@
     "mqtt": {
         "url" : "mqtt://broker.net"
     },
-    "klf200" : {
+    "velux" : {
         "password": "pass",
         "host": "velux"
     }

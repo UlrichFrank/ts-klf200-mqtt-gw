@@ -9,13 +9,13 @@ describe("Config", () => {
             },
             velux: {
                 host: "192.168.1.1",
-                "password": "text"
+                password: "text"
             }
         }
 
         expect(applyDefaults(config)).toStrictEqual({
             velux: {
-                "password": "text",
+                password: "text",
                 host: "192.168.1.1",
                 ca: "velux-cert.pem",
                 fingerprint: "12:34:56:78:9a:bc:de:f0:12:34:56:78:9a:bc:de:f0:12:34:56:78"

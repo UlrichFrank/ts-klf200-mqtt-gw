@@ -6,13 +6,13 @@
     "scripts": {
         "test": "jest",
         "coverage": "jest --coverage",
-        "start": "tsc && node dist/app/lib/index.js",
+        "start": "tsc && node dist/index.js",
         "build": "tsc",
         "lint": "eslint lib/** --ext .ts",
         "generate-test-stubs": "node dist/lib/test-stub-generator.js"
     },
-    "keywords": [],
-    "author": "Arndt, Philipp",
+    "keywords": [ "velux", "smarthome", "mqtt" ],
+    "author": "Frank, Ulrich",
     "license": "Apache-2.0",
     "private": true,
     "devDependencies": {
