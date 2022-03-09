@@ -22,7 +22,9 @@ export const publishResource = (resource: Product) => {
     let message: any
     let topic = getTopic(resource)
 
-    if (resource.ProductType == ActuatorType.RollerShutter) {
+    log.info(`publish Resource ${resource.Name} (${resource.ProductType})`)
+
+    if (resource.TypeID == ActuatorType.RollerShutter) {
         message = fromRollerShutter(resource)
     }
     else {

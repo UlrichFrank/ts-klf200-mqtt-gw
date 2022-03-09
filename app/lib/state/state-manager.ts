@@ -2,18 +2,31 @@ import { cleanTopic } from "../topic/topic-utils"
 import { log } from "../logger"
 import { publishResource } from "./state-event-handler"
 import { getAppConfig } from "../config/config"
-import { ActuatorType, Connection, Group, Product, Products } from "klf-200-api"
+import { ActuatorType, Connection, Group, Groups, Product, Products } from "klf-200-api"
 
 
 export class StateManager {
     _typedResources = new Map<ActuatorType, Product>()
 
     resourcesByTopic = new Map<string, Product>()
-    deviceByDeviceId = new Map<number, Product>()
+    productByNodeId = new Map<number, Product>()
+    groupByNodeId = new Map<number, Group>()
 
-    setDevices = (devices: Product[]) => {
-        for (const device of devices) {
-            this.deviceByDeviceId.set(device.NodeID, device)
+    setProducts = (products: Product[]) => {
+        log.info("Init Products")
+        for (const product of products) {
+            log.info(`add product: ${product.Name}`)
+            this.productByNodeId.set(product.NodeID, product)
+        }
+    }
+
+    setGroups = (groups: Group[]) => {
+        log.info("Init Groups")
+        for (const group of groups) {
+            log.info(`add group: ${group.Name}`)
+            for (const nodeId of group.Nodes) {
+                this.groupByNodeId.set(nodeId, group);
+            }
         }
     }
 
@@ -23,7 +36,7 @@ export class StateManager {
 
     addTypedResources = (resources: Product[]) => {
         for (const resource of resources) {
-            this._typedResources.set(resource.ProductType, resource)
+            this._typedResources.set(resource.TypeID, resource)
             const topic = getTopic(resource)
             const fullTopic = `${getAppConfig().mqtt.topic}/${topic}`
             this.resourcesByTopic.set(`${fullTopic}/set`, resource)
@@ -45,10 +58,16 @@ const updateAll = async () => {
 }
 
 export const initStateManagerFromVelux = async (conn: Connection) => {
+    log.info("Init Statemanager")
     const products = await Products.createProductsAsync(conn);
     if (products) {
-        state.setDevices(products.Products)
+        state.setProducts(products.Products)
     }
+    const groups = await Groups.createGroupsAsync(conn);
+    if (groups) {
+        state.setGroups(groups.Groups);
+    }
+
 
     state.addTypedResources(products.Products)
 
@@ -56,7 +75,7 @@ export const initStateManagerFromVelux = async (conn: Connection) => {
 }
 
 const getNameProvider = (resource: Product) => {
-    return state.deviceByDeviceId.get(resource.NodeID)
+    return state.productByNodeId.get(resource.NodeID)
 }
 
 const mapName = (resource: Product) => {
@@ -64,29 +83,16 @@ const mapName = (resource: Product) => {
     if (customName != null) {
         return customName
     }
-/*
-    const nameProvider = (isNameable(resource) ? resource : getNameProvider(resource))
-    if (isNameable(nameProvider)) {
-        return nameProvider.metadata.name
-    }
-    else {
-        return resource.id
-    }*/
     return resource.Name
 }
 
 export const getTopic = (resource: Product) => {
     let prefix = "";
-/*
-    if (isLight(resource)) {
-        const room = state.roomByResourceId
-            .get(resource.owner.rid)?.metadata
-            .name ?? "unassigned"
-        prefix = `${prefix}/${room}`
-    }
-*/
+
+    prefix = state.groupByNodeId.get(resource.NodeID)?.Name ?? "unassigned";
+
 //    return cleanTopic(`${prefix}/${mapName(resource)}`)
-    return cleanTopic(`${prefix}/${resource}`)
+    return cleanTopic(`${prefix}/${resource.Name}`)
 }
 
 export const state = new StateManager()

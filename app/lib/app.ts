@@ -30,7 +30,7 @@ export const startApp = async () => {
     log.info("Application is now ready.")
 
     log.info("Scheduling full-update every minute.")
-    const task = cron.schedule("0 * * * *", triggerFullUpdate)
+    const task = cron.schedule("*/1 * * * *", triggerFullUpdate)
     task.start()
 
     return () => {
